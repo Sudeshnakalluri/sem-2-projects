@@ -1,0 +1,49 @@
+<!-- Save as home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home Automation Dashboard</title>
+  <style>
+    body { font-family: Arial; background: #f4f4f4; text-align: center; }
+    .container { max-width: 600px; margin: 20px auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    .status { margin: 10px; padding: 10px; border-radius: 5px; }
+    .garage { background-color: #ffcccb; }
+    .room1 { background-color: #d4edda; }
+    .room2 { background-color: #cce5ff; }
+    .btn { padding: 10px 20px; border: none; background: #007bff; color: white; cursor: pointer; border-radius: 5px; }
+    .btn:hover { background-color: #0056b3; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🏠 Home Automation Dashboard</h2>
+
+    <div class="status garage">
+      <h3>🚗 Garage</h3>
+      <p>Vehicle Detected: <span id="vehicleStatus">No</span></p>
+      <button class="btn" onclick="sendCommand('/toggleGarage')">Toggle Garage Door</button>
+    </div>
+
+    <div class="status room1">
+      <h3>💡 Room 1</h3>
+      <p>Light Status: <span id="lightStatus">UNKNOWN</span></p>
+      <button class="btn" onclick="sendCommand('/toggleLight')">Toggle Light</button>
+    </div>
+
+    <div class="status room2">
+      <h3>🌡️ Room 2</h3>
+      <p>Fan Status: <span id="fanStatus">UNKNOWN</span></p>
+      <button class="btn" onclick="sendCommand('/toggleFan')">Toggle Fan</button>
+    </div>
+  </div>
+
+  <script>
+    function sendCommand(endpoint) {
+      fetch("http://localhost:5000" + endpoint)
+        .then(() => alert(endpoint + " sent to Arduino"))
+        .catch(err => alert("Error: " + err));
+    }
+  </script>
+</body>
+</html>
